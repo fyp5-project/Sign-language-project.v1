@@ -4,3 +4,4 @@ numpy
 pandas
 tensorflow
 libgl1
+SpeechRecognition
