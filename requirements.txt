@@ -3,5 +3,4 @@ opencv-python
 numpy
 pandas
 tensorflow
-libgl1
 SpeechRecognition
