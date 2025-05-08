@@ -1,0 +1,13 @@
+# Model checkpoints and data
+*.h5
+*.pt
+data/sign_videos/
+
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+
+# Logs and temp
+*.log
+temp_sign_translator/
