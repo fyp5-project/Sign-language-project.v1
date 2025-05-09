@@ -188,6 +188,11 @@ if st.session_state.mode == 'sign_to_text':
                  else:
                      st.info("Use the button above to capture an image from your webcam.")
 
+             # You could add a "Process Image" button here if you don't want it to process immediately on upload/capture
+             # if image_input and st.button("Analyze Sign"):
+             #     # Trigger prediction logic below
+             #     pass # Logic is already triggered by `if image_input is not None` check below
+
     # --- Column 2: Output (Text/Speech) ---
     with col2:
         st.markdown("#### Output (Text/Speech)") # Use markdown for heading style
@@ -226,6 +231,9 @@ if st.session_state.mode == 'sign_to_text':
                             st.write(f"**Predicted Sign (Text):** {predicted_class}") # Still show the text prediction
                             st.write(f"**Confidence:** {confidence:.2f}")
                             st.info(f"Speech output for '{predicted_class}' would play here. (Feature not yet implemented)")
+                            # Add placeholder button if needed
+                            # if st.button(f"🔊 Speak '{predicted_class}' (Placeholder)", key="speak_stt"):
+                            #     st.write("*(Speech playback not yet implemented)*")
 
 
                     except Exception as e:
@@ -297,7 +305,23 @@ elif st.session_state.mode == 'text_to_sign':
              elif tts_input_type == 'Upload Audio (Placeholder)':
                   st.info("Audio upload and speech recognition for Text-to-Sign is a placeholder feature.")
                   st.warning("Currently, only 'Type Text' input is functional in this mode.")
-  
+                  # Add placeholder file uploader
+                  # audio_file = st.file_uploader(
+                  #      "Upload an audio file (.wav)", # Specify format expected by SpeechRecognition
+                  #      type=["wav"],
+                  #      key="tts_audio_uploader",
+                  #      help="Upload a .wav file containing spoken words (feature not yet implemented)."
+                  # )
+                  # # This part needs implementation for speech recognition and triggering translation
+                  # if audio_file is not None:
+                  #     st.write("Processing audio file...")
+                  #     # Add speech recognition logic here...
+                  #     # recognized_text = recognize_speech_from_audio(audio_file.getvalue())
+                  #     # if recognized_text:
+                  #     #    st.write(f"Recognized Text: **{recognized_text}**")
+                  #     #    # Then trigger translation based on recognized_text
+                  #     # else:
+                  #     #    st.warning("Could not recognize speech from audio.")
 
     # --- Column 2: Output (Sign Video) ---
     with col2:
@@ -341,6 +365,16 @@ st.markdown("App built with Streamlit and TensorFlow")
 st.markdown(f"Sign video data expected in the '{DATA_DIR}' directory relative to the app scripts.")
 st.markdown("Model: Transfer Learning with ResNet50")
 
-
+# --- Temporary Directory Cleanup Note ---
+# In a real deployment, you would need a robust way to clean up the /tmp directories created by tempfile.mkdtemp
+# Streamlit doesn't provide built-in temp file management across sessions.
+# For local testing, the OS usually cleans up /tmp on restart.
 st.info(f"Generated videos for Text-to-Sign are saved to temporary directories (e.g., in {tempfile.gettempdir()}). These directories are not automatically cleaned up by the app itself.")
 
+
+# --- Potential Cleanup on App Shutdown (Advanced) ---
+# Streamlit does not have a reliable shutdown hook.
+# Cleaning up temporary files is typically handled by:
+# 1. The OS clearing the /tmp directory on restart.
+# 2. A separate cleanup process or script if deploying long-term.
+# 3. Designing the app to use a non-temp directory that can be manually cleared.
