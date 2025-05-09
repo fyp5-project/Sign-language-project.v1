@@ -115,26 +115,7 @@ def load_labels_df(labels_csv_path):
         print("Successfully saved the corrected labels CSV.")
     except Exception as e:
         print(f"Warning: Failed to save the corrected labels CSV back to {labels_csv_path}: {e}")
-        # Decide if this should be a critical error or just a warning.
-        # For now, we'll let the app proceed with the DataFrame in memory,
-        # but the file on disk might not be updated.
 
-
-    # --- Path Handling (Ensure paths are correct relative to DATA_DIR) ---
-    # Check if the file_path column entries look like relative paths or need correction
-    # This logic depends heavily on your specific CSV content
-    # Example: If paths are just filenames, prepend 'sign_videos/'
-    # If paths are still Google Drive paths, you need to replace the prefix.
-    # A robust script would handle this *before* running the app.
-    # For now, let's assume the paths in the CSV are correctly relative to DATA_DIR like 'sign_videos/...'
-
-    # You might want to add a check here to ensure paths don't start with '/' (absolute)
-    # or contain problematic prefixes like 'C:\' or '/content/drive/'
-
-    # --- Optional Video File Existence Validation ---
-    # Add the optional validation check here if you want to ensure videos exist.
-    # (Code is commented out in the previous response)
-    # Be aware this adds load time.
 
     print(f"Loaded {len(df)} valid video entries from {labels_csv_path}.")
 
